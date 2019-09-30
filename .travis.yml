@@ -1,22 +1,23 @@
+language: generic 
 sudo: required
 services:
   - docker
 
 before_install:
-  - docker build -t pshastri/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t pari498/react-test -f ./client/Dockerfile.dev ./client
 #primary test running section. if any of these fails trvis-ci fails
 script:
-  - docker run -e CI=true pshastri/react-test npm test
+  - docker run -e CI=true pari498/react-test npm test
 
 after_success: 
-  - docker build -t pshastri/multi-client ./client
-  - docker build -t pshastri/multi-worker ./worker
-  - docker build -t pshastri/multi-nginx ./nginx
-  - docker build -t pshastri/multi-server ./server
+  - docker build -t pari498/multi-client ./client
+  - docker build -t pari498/multi-worker ./worker
+  - docker build -t pari498/multi-nginx ./nginx
+  - docker build -t pari498/multi-server ./server
   #log in to docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   #Take those images and push them to docker hub
-  - docker push pshastri/multi-client
-  - docker push pshastri/multi-nginx
-  - docker push pshastri/multi-server
-  - docker push pshastri/multi-worker
+  - docker push pari498/multi-client
+  - docker push pari498/multi-nginx
+  - docker push pari498/multi-server
+  - docker push pari498/multi-worker
