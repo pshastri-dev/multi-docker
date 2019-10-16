@@ -6,21 +6,24 @@
 			"image": "pari498/multi-client",
 			"hostname": "client", //giving access of mentioned container to all the components(workermnginx etc)
 			  //if container crashes true will shut other services, false will not shut other services if container crashes
-			"essential": false
+			"essential": false,
+			"memory": 128
 
-		}
+		},
 		{
 			"name" : "server" ,
 			"image": "pari498/multi-server",
 			"hostname": "api", 
-			"essential": false
+			"essential": false,
+			"memory": 128
 
-		}
+		},
 		{
 			"name" : "worker" ,
 			"image": "pari498/multi-worker",
 			"hostname": "worker", 
-			"essential": false 
+			"essential": false,
+			"memory": 128
 
 		},
 		{
@@ -28,6 +31,7 @@
 			"image": "pari498/multi-nginx",
 			"hostname":"nginx",
 			"essential": true,
+			"memory": 128,
 
 			"portMappings": [
 				{
