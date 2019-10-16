@@ -1,0 +1,44 @@
+{
+	"AWSEBDockerrunVersion": 2,
+	"containerDefinitions": [
+		{
+			"name" : "client" ,
+			"image": "pari498/multi-client",
+			"hostname": "client", //giving access of mentioned container to all the components(workermnginx etc)
+			  //if container crashes true will shut other services, false will not shut other services if container crashes
+			"essential": false
+
+		}
+		{
+			"name" : "server" ,
+			"image": "pari498/multi-server",
+			"hostname": "api", 
+			"essential": false
+
+		}
+		{
+			"name" : "worker" ,
+			"image": "pari498/multi-worker",
+			"hostname": "worker", 
+			"essential": false 
+
+		},
+		{
+			"name": "nginx",
+			"image": "pari498/multi-nginx",
+			"hostname":"nginx",
+			"essential": true,
+
+			"portMappings": [
+				{
+					"hostPort": 80 ,
+					"containerPort": 80
+				}
+			],
+			//explicit mapping between containers. 
+			"links": ["client", "server"]
+
+		}
+
+	]
+}
